@@ -5,6 +5,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Explore from './src/assets/Kesfet.svg';
+import Portal from './src/assets/PORTAL.svg';
+import Joined from './src/assets/Katıldıklarım.svg';
+
 
 // [Internal]
 import React from 'react';
@@ -18,67 +22,41 @@ import {
   View,
 } from 'react-native';
 import { store } from './src/app/store';
+import ExploreScreen from './src/pages/explore';
 
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
 
 const MainScreens = () => {
   const Tab = createBottomTabNavigator();
 
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name='Home' component={HomeScreen} />
+    <Tab.Navigator screenOptions={{ 
+      headerShown: false,
+      tabBarStyle: styles.tabBarStyle
+      }}>
+      <Tab.Screen name='KEŞFET' options={{
+        tabBarIcon: ({focused}) => {
+          return <Explore width={26} height={26} opacity={focused ? 1 : 0.3} />;
+        },
+        tabBarActiveTintColor: "#1D1E1C",
+        tabBarLabelStyle: styles.tabBarLabelStyle,
+        tabBarItemStyle: styles.tabBarItemStyle
+      }} component={ExploreScreen} />
+      <Tab.Screen name=" " options={{
+        tabBarIcon: ({focused}) => {
+          return <Portal  />;
+        },
+        tabBarIconStyle: { marginTop: 6}
+        }}  component={ExploreScreen} />
+      <Tab.Screen name='DAHA CÜZDAN' component={ExploreScreen} options={{
+        tabBarIcon: ({focused}) => {
+          return <Joined width={26} height={26} opacity={focused ? 1 : 0.3} />;
+        },
+        tabBarActiveTintColor: "#1D1E1C",
+        tabBarLabelStyle: styles.tabBarLabelStyle,
+        tabBarItemStyle: styles.tabBarItemStyle
+      }} />
     </Tab.Navigator>
   );
-
-  // return (
-  //      <View style={styles.stack}>
-  //       <Tab.Navigator screenOptions={{
-  //         tabBarStyle: { backgroundColor: '#1F2C44', borderTopWidth: 0, borderTopColor: Colors.TextColor, borderRadius: 0, paddingTop: 10 }, 
-  //         headerTitleAlign: 'center',
-  //         headerRight: HeaderRight,
-  //         headerStyle: { backgroundColor: Colors.PrimaryDarkColor},
-  //         headerTitleStyle: {
-  //           fontSize: 24,
-  //         },
-  //         headerTintColor: Colors.TextColor
-  //       }}>
-  //           <Tab.Screen name='Filmania' options={{
-  //             tabBarIcon: ({focused}) => {
-  //               return <HomeIcon name="home" size={26} color={focused ? Colors.PrimaryLightColor : Colors.TextColor} />
-  //             },
-  //             tabBarShowLabel: false,
-              
-  //           }} 
-  //           component={HomeScreen} 
-  //           />
-  //           <Tab.Screen name='Keşfet' component={ExploreScreen} options={{
-  //             tabBarIcon: ({focused}) => {
-  //               return <ExploreIcon name="rocket" size={26} color={focused ? Colors.PrimaryLightColor : Colors.TextColor} />
-  //             },
-  //             tabBarShowLabel: false
-  //           }} />
-  //           <Tab.Screen name='Listem' component={Saved} options={{
-  //             tabBarIcon: ({focused}) => {
-  //               return <SavedIcon name='bookmark' size={26} color={focused ? Colors.PrimaryLightColor : Colors.TextColor} />
-  //             },
-  //             tabBarShowLabel: false
-  //           }} />
-  //           <Tab.Screen name='Arama' component={Search} options={{
-  //             tabBarIcon: ({focused}) => {
-  //               return <SearchIcon name='search' size={26} color={focused ? Colors.PrimaryLightColor : Colors.TextColor} />
-  //             },
-  //             tabBarShowLabel: false
-  //           }} />
-  //       </Tab.Navigator>
-  //      </View>
-  // );
 }
 
 function DetailScreen({ route }: any) {
@@ -97,7 +75,7 @@ function App(): React.JSX.Element {
 
   return (
     <Provider store={store}>
-      <GestureHandlerRootView style={{flex: 1}}>
+      <GestureHandlerRootView style={styles.rootView}>
         <NavigationContainer>
           <StatusBar translucent barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
           <Stack.Navigator initialRouteName={"Main"} screenOptions={{ headerBackTitleVisible: false }}>
@@ -118,7 +96,32 @@ function App(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-
+  rootView: {
+    flex: 1
+  },
+  tabBarStyle: {
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderWidth: 1.5, 
+    borderColor: '#ECEEEF',
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 10,
+  },
+  tabBarLabelStyle: {
+    fontWeight: 700,
+    fontSize: 10, 
+    lineHeight: 11.5, 
+    letterSpacing: 0.5
+  },
+  tabBarItemStyle: {
+    marginRight: 6,
+    marginTop: 6,
+    height: 50
+  }
 });
 
 export default App;

@@ -6,6 +6,8 @@ import Config from 'react-native-config';
 export const fetchTagsList = () => {
  
     let url: string = `${Config.BASE_API_URL}tags/list`;
+
+    console.log("url: ", url)
   
     return ajax({
       url: url,
@@ -37,6 +39,8 @@ export const fetchPromotionsList = () => {
 export const fetchPromotionDetail = (id: number) => {
  
     let url: string = `${Config.BASE_API_URL}promotions?Id=${id}`;
+
+   
   
     return ajax({
       url: url,

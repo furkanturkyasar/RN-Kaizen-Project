@@ -12,10 +12,11 @@ import { RootState } from '@reduxjs/toolkit/query';
 export const tagsListEpic: Epic = (action$: any, state: any) =>
     action$.pipe(
       ofType(PromotionsConstants.fetchTagsList),
-      mergeMap(() =>
+      mergeMap(() => 
         fetchTagsList().pipe(
-          map((ajaxResponse: any) => 
-              getTagsList(ajaxResponse.response.results)
+          map((ajaxResponse: any) => {
+            return getTagsList(ajaxResponse.response)
+          }
           ),
           catchError((error: Error) => of({ type: 'promotions/fetchFailed', error: error.message }))
         )

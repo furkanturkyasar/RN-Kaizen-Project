@@ -17,7 +17,7 @@ export default function ExploreScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <Header />
-            {/* <TagsContainer /> */}
+            <TagsContainer />
         </SafeAreaView>
     );
 }
@@ -25,8 +25,6 @@ export default function ExploreScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        margin: 18,
-        marginBottom: 0,
     },
     wrapper: {
     }

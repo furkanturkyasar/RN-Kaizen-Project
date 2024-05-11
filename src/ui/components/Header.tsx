@@ -23,8 +23,7 @@ export default Header;
 
 const styles = StyleSheet.create({
     container: {
-    
-        //backgroundColor: 'red',
+        margin: 18,
         flexDirection: 'row',
         justifyContent: 'space-between'
     },

@@ -28,6 +28,8 @@ export const fetchPromotionsList = () => {
  
   let url: string = `${Config.BASE_API_URL}promotions/list?Channel=PWA`;
 
+  console.log("url: ", url)
+
   return ajax({
     url: url,
     method: 'GET',
@@ -36,7 +38,12 @@ export const fetchPromotionsList = () => {
       "X-Country-Id": "TR",
       "X-Language-Id": "TR"
     }
-  });
+  }).pipe(
+    catchError(error => {
+      console.error('Error fetching promotion list:', error);
+      return of(error);
+  })
+  )
 };
 
 
@@ -54,5 +61,10 @@ export const fetchPromotionDetail = (id: number) => {
         "X-Country-Id": "TR",
         "X-Language-Id": "TR"
       }
-    });
+    }).pipe(
+      catchError(error => {
+        console.error('Error fetching promotion detail:', error);
+        return of(error);
+    })
+    )
 };

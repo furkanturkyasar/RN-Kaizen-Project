@@ -23,7 +23,7 @@ import {
 } from 'react-native';
 import { store } from './src/app/store';
 import ExploreScreen from './src/pages/explore';
-
+import DetailScreen from './src/pages/details';
 
 const MainScreens = () => {
   const Tab = createBottomTabNavigator();
@@ -43,7 +43,7 @@ const MainScreens = () => {
       }} component={ExploreScreen} />
       <Tab.Screen name=" " options={{
         tabBarIcon: ({focused}) => {
-          return <Portal  />;
+          return <Portal />;
         },
         tabBarIconStyle: { marginTop: 6}
         }}  component={ExploreScreen} />
@@ -58,15 +58,6 @@ const MainScreens = () => {
     </Tab.Navigator>
   );
 }
-
-function DetailScreen({ route }: any) {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Item ID: {route.params.itemId}</Text>
-    </View>
-  );
-}
-
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
@@ -86,7 +77,8 @@ function App(): React.JSX.Element {
                 />
                 <Stack.Screen name='Detail' component={DetailScreen} options={{ 
                         title: "Details",
-                      }} 
+                        headerShown: false
+                      }}
                 />
           </Stack.Navigator>
         </NavigationContainer>
@@ -97,7 +89,7 @@ function App(): React.JSX.Element {
 
 const styles = StyleSheet.create({
   rootView: {
-    flex: 1
+    flex: 1,
   },
   tabBarStyle: {
     borderTopLeftRadius: 20,

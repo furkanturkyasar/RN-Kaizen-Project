@@ -29,7 +29,7 @@ export const promotionsListEpic: Epic = (action$: any, state: any) =>
     mergeMap(() =>
       fetchPromotionsList().pipe(
         map((ajaxResponse: any) => 
-            getPromotionsList(ajaxResponse.response.results)
+            getPromotionsList(ajaxResponse.response)
         ),
         catchError((error: Error) => of({ type: 'promotions/fetchFailed', error: error.message }))
       )
@@ -42,7 +42,7 @@ export const promotionDetailEpic: Epic = (action$: any, state: any) =>
       mergeMap((action: any) =>
         fetchPromotionDetail(action.payload).pipe(
           map((ajaxResponse: any) => 
-              getPromotionDetail(ajaxResponse.response.results)
+              getPromotionDetail(ajaxResponse.response)
           ),
           catchError((error: Error) => of({ type: 'promotions/fetchFailed', error: error.message }))
         )

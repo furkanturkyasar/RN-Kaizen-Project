@@ -5,6 +5,7 @@ import Header from "../ui/components/Header";
 import TagsContainer from "../ui/container/Tags";
 import { fetchPromotionDetailAction, fetchPromotionsListAction, fetchTagsListAction } from "../features/promotions/promotionsActions";
 import ExploreCarouselContainer from "../ui/container/ExploreCarousel";
+import DetailsContainer from "../ui/container/Details";
 
 const { width, height } = Dimensions.get('screen')
 
@@ -13,17 +14,16 @@ export default function DetailScreen({route}: any) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (route.params.Id && dispatch) {
-            dispatch(fetchPromotionDetailAction(route.params.Id))
+        const promotionId = route.params?.Id;
+        if (promotionId) {
+            //dispatch(fetchPromotionDetailAction(promotionId));
         }
-    }, [route.params])
+    }, [route.params, dispatch]);
 
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text>
-                
-            </Text>
+           <DetailsContainer />
         </SafeAreaView>
     );
 }

@@ -5,6 +5,8 @@ import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 import RenderHtml from 'react-native-render-html';
 import moment from 'moment';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { fetchPromotionDetailAction } from '../../features/promotions/promotionsActions';
 
 
 export interface ExploreCarouselProps {
@@ -29,6 +31,8 @@ const ExploreCarousel = ({ promotionsList }: ExploreCarouselProps) => {
     if (!promotionsList || promotionsList.length < 1) {
         return null;
     };
+
+    const dispatch = useDispatch()
 
     const renderPagination = () => {
         return (
@@ -64,6 +68,7 @@ const ExploreCarousel = ({ promotionsList }: ExploreCarouselProps) => {
     }
 
     const handleOnPress = (item: Promotion) => {
+        dispatch(fetchPromotionDetailAction(item.Id))
         navigation.navigate('Detail', { SeoName: item.SeoName, Id: item.Id });
     };
     
@@ -76,8 +81,7 @@ const ExploreCarousel = ({ promotionsList }: ExploreCarouselProps) => {
 
         return (
             <View key={`crl_item_${item.Id}`} style={styles.wrapper}>
-                <View style={[styles.background, { backgroundColor: item.PromotionCardColor }]}>
-                </View>
+                <View style={[styles.background, { backgroundColor: item.PromotionCardColor }]}></View>
                 <View style={styles.inner}>
                         <Image style={styles.bigImage} source={{uri: item.ImageUrl}} />
                         <View style={styles.brandIconContainer}>
@@ -108,11 +112,8 @@ const ExploreCarousel = ({ promotionsList }: ExploreCarouselProps) => {
                 ref={carouselRef}
                 width={width / 1.1}
                 height={width / 1}
-                autoPlay={true}
-                pagingEnabled
                 data={promotionsList}
                 mode='parallax'
-                scrollAnimationDuration={4000}
                 onSnapToItem={(index) => setActiveIndex(index)}
                 renderItem={({ item, index }) => (
                     renderItem({item: item, index: index})

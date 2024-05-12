@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
 import { Tag } from '../../features/promotions/promotionTypes'
 import SearchIcon from '../../assets/Small_Brand_Logo_1.svg';
@@ -8,10 +8,19 @@ export interface TagsProps {
 }
 
 const Tags = ({tags}: TagsProps) => {
+    const [activeId, setActiveId] = useState<number | null>(null);
 
     if (!tags || tags.length < 1) {
         return null;
-    }
+    };
+
+    const handleTagClicked = (id: number) => {
+        if (id === activeId) {
+            setActiveId(null);
+        } else {
+            setActiveId(id)
+        }
+    };
 
   return (
     <View style={styles.container}>
@@ -25,7 +34,7 @@ const Tags = ({tags}: TagsProps) => {
             {
                 tags.map((tag) => {
                     return (
-                        <TouchableOpacity style={[styles.tag, { borderColor: "#ECEEEF"}]} key={`tags_${tag.Id}`}>
+                        <TouchableOpacity onPress={() => handleTagClicked(tag.Id)} style={[styles.tag, { borderColor: activeId === tag.Id ? "#F40000" : "#ECEEEF"}]} key={`tags_${tag.Id}`}>
                             <Image source={{ uri: tag.IconUrl }} style={styles.image} />
                             <Text numberOfLines={1} style={styles.tagText}>
                                 {tag.Name}
